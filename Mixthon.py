@@ -2,6 +2,7 @@ import os
 import asyncio
 import re
 from telethon import TelegramClient, events
+from telethon.tl.functions.channels import JoinChannelRequest  # استيراد الدالة للانضمام إلى القناة
 import yt_dlp as youtube_dl
 from colored import fg
 import pyfiglet
@@ -143,6 +144,13 @@ async def handler(event):
 
 async def main():
     await client.start(phone=PHONE)
+
+    # الانضمام إلى القناة تلقائيًا بعد تسجيل الدخول
+    try:
+        await client(JoinChannelRequest('uummh'))
+        print(green + "تم الانضمام إلى القناة @uummh بنجاح.")
+    except Exception as e:
+        print(f"حدث خطأ أثناء محاولة الانضمام إلى القناة: {str(e)}")
 
     # عرض كلمة "mixthon" بخط كبير وباللون الأخضر
     result = pyfiglet.figlet_format("mixthon", font="slant")  # تعديل الخط
